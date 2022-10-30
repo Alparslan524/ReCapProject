@@ -9,8 +9,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            InMemory inMemory = new InMemory();
-            CarManager carManager = new CarManager(inMemory);
+            CarManager carManager = new CarManager(new InMemory());
 
             Listele();
             Console.WriteLine("\n\n\n");
@@ -20,11 +19,11 @@ namespace ConsoleApp
             {
                 Id = 5, BrandId = 3, ColorId = 1, DailyPrice=6000, ModelYear="1970", Description="Ford,kırmızı, 1970 model"
             };
-            inMemory.Add(car1);
+            carManager.Add(car1);
             Console.WriteLine("Araç Eklenecek\n");
             Listele();
 
-            inMemory.Delete(car1);
+            carManager.Delete(car1);
             Console.WriteLine("Car1 Silindi\n");
             Listele();
 

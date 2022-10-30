@@ -1,0 +1,24 @@
+﻿using Business.Abstract;
+using DataAccess.Abstract;
+using Entities.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Business.Concrete
+{
+    public class CarManager : ICarServices
+    {
+        ICarDal _carDal;
+        public CarManager(ICarDal carDal)
+        {
+            _carDal = carDal;
+        }
+
+        public List<Car> GetAll()
+        {
+            //işlemler
+            return _carDal.GetAll();
+        }
+    }
+}

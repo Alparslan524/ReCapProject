@@ -20,13 +20,7 @@ namespace Business.Concrete
             //işlemler
             return _carDal.GetAll();
         }
-
-        public List<Car> GetbyId(int id)
-        {
-            //işlemler
-            return _carDal.GetbyId(id);
-        }
-
+        
         public void Add(Car car)
         {
             _carDal.Add(car);
@@ -41,6 +35,9 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
         }
-    
+        public List<Car> GetByDailyPrice(decimal min, decimal max)
+        {
+            return _carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max);
+        }
     }
 }

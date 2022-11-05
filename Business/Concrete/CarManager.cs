@@ -23,7 +23,16 @@ namespace Business.Concrete
         
         public void Add(Car car)
         {
-            _carDal.Add(car);
+            if (car.DailyPrice>=0)
+            {
+                _carDal.Add(car);
+                Console.WriteLine("Araç eklendi!!!");
+            }
+            else
+            {
+                Console.WriteLine("Günlük Fiyat Sıfırdan Büyük Olmalıdır. Araç ekleme başarısız");
+            }
+            
         }
 
         public void Delete(Car car)

@@ -11,12 +11,13 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            Car car1 = new Car {ColorId=2,BrandId=2,DailyPrice=-50,Description="Günlük ücreti 0dan büyük olmalıdır. Bunu test ediyorum",ModelYear="2022"};
+            Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=4200,Description="denemearacı",ModelYear="2000"};
             
             //Normal ekleme çalışıyor
             carManager.Add(car1);
-            //Listele();
-            UcreteGoreListele(5200,6100);
+
+            Listele();
+            //UcreteGoreListele(5200,6100);
 
 
 

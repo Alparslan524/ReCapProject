@@ -12,14 +12,14 @@ namespace ConsoleApp
         {
             CarManager carManager = new CarManager(new EfCarDal());
             Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=4200,Description="denemearacı",ModelYear="2000"};
-            
-            //Normal ekleme çalışıyor
-            carManager.Add(car1);
 
-            Listele();
+            //Normal ekleme çalışıyor
+            //carManager.Add(car1);
+
+            //Listele();
             //UcreteGoreListele(5200,6100);
 
-
+            ArabaListeleGetAll();
 
 
 
@@ -41,6 +41,16 @@ namespace ConsoleApp
                     "\n" + "Araç Günlük Fiyatı: " + c.DailyPrice + "\n" + "******************");
                 }
             }
+            void ArabaListeleGetAll()
+            {
+                foreach (var c in carManager.GetCarDetailDtos())
+                {
+                    Console.WriteLine("Renk: " + c.ColorName + "\n" + "Renk Id: " + c.ColorId +
+                    "\n" + "Açıklamaı: " + c.Description + "\n" + "******************");    //Sadece DTO ya eklediklerimizi yazabildik
+                                                                                            //yani colortıd-colorname-desciription yazabiliriz.
+                                                                                            //çünkü .GetProductDetailDtos çağırdık
+                }
+            };
         }
     }
 }

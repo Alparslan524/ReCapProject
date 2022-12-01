@@ -11,15 +11,23 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=4200,Description="denemearacı",ModelYear="2000"};
+            Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=-200,Description="denemearacı3",ModelYear="2200"};
 
             //Normal ekleme çalışıyor
-            //carManager.Add(car1);
+            var result = carManager.Add(car1);
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
 
-            //Listele();
+
+            Listele();
             //UcreteGoreListele(5200,6100);
-
-            ArabaListeleGetAll();
+            //ArabaListeleGetAll();
 
 
 
@@ -27,30 +35,65 @@ namespace ConsoleApp
 
             void UcreteGoreListele(decimal min, decimal max)
             {
-                foreach (var c in carManager.GetByDailyPrice(min, max))
+                var result = carManager.GetByDailyPrice(min, max);
+                if (result.Success==true)
                 {
-                    Console.WriteLine("Araç Açıklaması: " + c.Description + "\n" + "Araç Model Yılı: " + c.ModelYear +
-                         "\n" + "Araç Günlük Fiyatı: " + c.DailyPrice + "\n" + "******************");
+                    foreach (var c in carManager.GetByDailyPrice(min, max).Data)
+                    {
+                        Console.WriteLine("Araç Açıklaması: " + c.Description + "\n" + "Araç Model Yılı: " + c.ModelYear +
+                             "\n" + "Araç Günlük Fiyatı: " + c.DailyPrice + "\n" + "******************");
+                    }
+                    Console.WriteLine(result.Message);
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
                 }
             }
+
+
             void Listele()
             {
-                foreach (var c in carManager.GetAll())
+                var result = carManager.GetAll();
+                if (result.Success==true)
                 {
-                    Console.WriteLine("Araç Açıklaması: " + c.Description + "\n" + "Araç Model Yılı: " + c.ModelYear +
-                    "\n" + "Araç Günlük Fiyatı: " + c.DailyPrice + "\n" + "******************");
+                    foreach (var c in carManager.GetAll().Data)
+                    {
+                        Console.WriteLine("Araç Açıklaması: " + c.Description + "\n" + "Araç Model Yılı: " + c.ModelYear +
+                        "\n" + "Araç Günlük Fiyatı: " + c.DailyPrice + "\n" + "******************");
+                    }
+                    Console.WriteLine(result.Message);
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
                 }
             }
+ 
+            
+            
             void ArabaListeleGetAll()
             {
-                foreach (var c in carManager.GetCarDetailDtos())
+                var result = carManager.GetCarDetailDtos();
+                if (result.Success==true)
                 {
-                    Console.WriteLine("Renk: " + c.ColorName + "\n" + "Renk Id: " + c.ColorId +
-                    "\n" + "Açıklamaı: " + c.Description + "\n" + "******************");    //Sadece DTO ya eklediklerimizi yazabildik
-                                                                                            //yani colortıd-colorname-desciription yazabiliriz.
-                                                                                            //çünkü .GetProductDetailDtos çağırdık
+                    foreach (var c in carManager.GetCarDetailDtos().Data)
+                    {
+                        Console.WriteLine("Renk: " + c.ColorName + "\n" + "Renk Id: " + c.ColorId +
+                        "\n" + "Açıklamaı: " + c.Description + "\n" + "******************");    //Sadece DTO ya eklediklerimizi yazabildik
+                                                                                                //yani colortıd-colorname-desciription yazabiliriz.
+                                                                                                //çünkü .GetProductDetailDtos çağırdık
+                    }
+                    Console.WriteLine(result.Message);
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
                 }
             };
+        
+        
+        
         }
     }
 }

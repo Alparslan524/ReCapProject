@@ -11,9 +11,7 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=2000,Description="denemearacı34",ModelYear="200"};
-
-            //Normal ekleme çalışıyor
+            //Car car1 = new Car {ColorId=1,BrandId=2,DailyPrice=5000,Description="deneme45",ModelYear="var"};
             //var result = carManager.Add(car1);
             //if (result.Success == true)
             //{
@@ -24,13 +22,11 @@ namespace ConsoleApp
             //    Console.WriteLine(result.Message);
             //}
 
-
             Listele();
             //UcreteGoreListele(5200,6100);
             //ArabaListeleGetAll();
 
-
-
+            
 
 
             void UcreteGoreListele(decimal min, decimal max)
@@ -55,7 +51,7 @@ namespace ConsoleApp
             void Listele()
             {
                 var result = carManager.GetAll();
-                if (result.Success==true)
+                if (result.Success == true)
                 {
                     foreach (var c in carManager.GetAll().Data)
                     {
@@ -69,9 +65,8 @@ namespace ConsoleApp
                     Console.WriteLine(result.Message);
                 }
             }
- 
-            
-            
+
+
             void ArabaListeleGetAll()
             {
                 var result = carManager.GetCarDetailDtos();

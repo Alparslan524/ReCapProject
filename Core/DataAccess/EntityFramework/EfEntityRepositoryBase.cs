@@ -12,23 +12,23 @@ namespace Core.DataAccess.EntityFramework
         where TEntity:class, IEntity, new()
         where TContext: DbContext, new()
     {
-        public void Add(TEntity car)
+        public void Add(TEntity entity)
         {
-            using (TContext northWindContext = new TContext())
+            using (TContext context = new TContext())
             {
-                var addedCar = northWindContext.Entry(car);
-                addedCar.State = EntityState.Added;
-                northWindContext.SaveChanges();
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
             }
         }
 
-        public void Delete(TEntity car)
+        public void Delete(TEntity entity)
         {
-            using (TContext northWindContext = new TContext())
+            using (TContext context = new TContext())
             {
-                var deletedCar = northWindContext.Entry(car);
-                deletedCar.State = EntityState.Deleted;
-                northWindContext.SaveChanges();
+                var deletedEntity = context.Entry(entity);
+                deletedEntity.State = EntityState.Deleted;
+                context.SaveChanges();
             }
         }
 
@@ -48,13 +48,13 @@ namespace Core.DataAccess.EntityFramework
             }                         //select * from products döndürür : //filtreli halini döndürür
         }
 
-        public void Update(TEntity car)
+        public void Update(TEntity entity)
         {
-            using (TContext northWindContext = new TContext())
+            using (TContext context = new TContext())
             {
-                var updatedCar = northWindContext.Entry(car);
-                updatedCar.State = EntityState.Modified;
-                northWindContext.SaveChanges();
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+                context.SaveChanges();
             }
         }
     }

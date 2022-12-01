@@ -11,18 +11,18 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=-200,Description="denemearacı3",ModelYear="2200"};
+            Car car1 = new Car {ColorId=1,BrandId=1,DailyPrice=2000,Description="denemearacı34",ModelYear="200"};
 
             //Normal ekleme çalışıyor
-            var result = carManager.Add(car1);
-            if (result.Success == true)
-            {
-                Console.WriteLine(result.Message);
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+            //var result = carManager.Add(car1);
+            //if (result.Success == true)
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
 
 
             Listele();

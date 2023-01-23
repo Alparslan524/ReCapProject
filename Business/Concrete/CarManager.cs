@@ -6,6 +6,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -21,7 +22,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {
             //işlemler  
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll().ToList(), Messages.CarListed);
         }
         
         public IResult Add(Car car)
@@ -53,7 +54,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max), Messages.ListedByPrice);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max).ToList(), Messages.ListedByPrice);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetailDtos()

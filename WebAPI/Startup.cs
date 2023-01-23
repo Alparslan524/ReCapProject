@@ -30,23 +30,29 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ICarServices,CarManager>();
-            services.AddTransient<ICarDal,EfCarDal>();
+            //services.AddSingleton<ICarServices,CarManager>();
+            //services.AddTransient<ICarDal,EfCarDal>();
             
-            services.AddSingleton<IColorServices, ColorManager>();
-            services.AddTransient<IColorDal, EfColorDal>();
+            //services.AddSingleton<IColorServices, ColorManager>();
+            //services.AddTransient<IColorDal, EfColorDal>();
 
-            services.AddSingleton<IBrandServices, BrandManager>();
-            services.AddTransient<IBrandDal, EfBrandDal>();
+            //services.AddSingleton<IBrandServices, BrandManager>();
+            //services.AddTransient<IBrandDal, EfBrandDal>();
 
-            services.AddSingleton<ICustomerServices, CustomerManager>();
-            services.AddTransient<ICustomerDal, EfCustomerDal>();
+            //services.AddSingleton<ICustomerServices, CustomerManager>();
+            //services.AddTransient<ICustomerDal, EfCustomerDal>();
 
-            services.AddSingleton<IRentalServices, RentalManager>();
-            services.AddTransient<IRentalDal, EfRentalDal>();
+            //services.AddSingleton<IRentalServices, RentalManager>();
+            //services.AddTransient<IRentalDal, EfRentalDal>();
 
-            services.AddSingleton<IUserServices, UserManager>();
-            services.AddTransient<IUserDal, EfUserDal>();
+            //services.AddSingleton<IUserServices, UserManager>();
+            //services.AddTransient<IUserDal, EfUserDal>();
+
+            //IOC yapýlandýrýlmasý
+            //Biz Autofac kullancaz. Çünkü AOP saðlýyor
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

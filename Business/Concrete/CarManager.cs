@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.DependencyResolvers.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -39,15 +40,7 @@ namespace Business.Concrete
             //    return new ErrorResult(Messages.FalseDailyPrice);
             //} Fluent Validation Öncesi kodu
 
-
-            var context = new ValidationContext<Car>(car);
-            CarValidator carValidator = new CarValidator();
-            var result = carValidator.Validate(context);
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
-                
+            ValidationTool.Validate(new CarValidator(), car);                
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }

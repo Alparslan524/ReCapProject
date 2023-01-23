@@ -1,9 +1,11 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +29,27 @@ namespace Business.Concrete
         
         public IResult Add(Car car)
         {
-            if (car.DailyPrice>=0)
+            //if (car.DailyPrice>=0)
+            //{
+            //    _carDal.Add(car);
+            //    return new SuccessResult(Messages.CarAdded);
+            //}
+            //else
+            //{
+            //    return new ErrorResult(Messages.FalseDailyPrice);
+            //} Fluent Validation Öncesi kodu
+
+
+            var context = new ValidationContext<Car>(car);
+            CarValidator carValidator = new CarValidator();
+            var result = carValidator.Validate(context);
+            if (!result.IsValid)
             {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
+                throw new ValidationException(result.Errors);
             }
-            else
-            {
-                return new ErrorResult(Messages.FalseDailyPrice);
-            }
-            
+                
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(Car car)

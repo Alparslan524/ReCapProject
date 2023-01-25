@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.DependencyResolvers.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -42,17 +43,15 @@ namespace Business.Concrete
             //    return new ErrorResult(Messages.FalseDailyPrice);
             //} Fluent Validation Öncesi kodu
 
-            if (CheckIfCarCountOfBrandCorrect(car.BrandId).Success)
+            IResult result = BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId), CheckSameDescription(car.Description));
+
+            if (result!=null)
             {
-                if (CheckSameDescription(car.Description).Success)
-                {
-                    _carDal.Add(car);
-                    return new SuccessResult(Messages.CarAdded);
-                }
-                return new ErrorResult(Messages.SameDescription);
+                return result;
             }
-            return new ErrorResult(Messages.BrandQuantityError);
-            
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
+
         }
 
         public IResult Delete(Car car)
@@ -80,6 +79,7 @@ namespace Business.Concrete
     
         private IResult CheckIfCarCountOfBrandCorrect(int brandId)// Product product da diyebilirdik.
                                                                   // Ama solidin S si olduğu için bu method sadece 1 özelliği kontrol ediyor
+                                                                  //başka özellikler başka methodda
         {
             var result = _carDal.GetAll(c => c.BrandId == brandId).Count;
             if (result >= 10)

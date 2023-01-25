@@ -38,6 +38,7 @@ namespace Business.Constants
         public static string RentalDeleted = "Kiralama İşlemi Silindi";
         public static string RentalUpdated = "Kiralama İşlemi Güncellendi";
         public static string RentalListed = "Kiralamalar Listelendi";
-
+        public static string BrandQuantityError = "Bir markanın maksimum 10 aracı olabilir";
+        public static string SameDescription = "Aynı açıklamaya sahip başka bir araç var";
     }
 }

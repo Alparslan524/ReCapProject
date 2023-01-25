@@ -19,9 +19,13 @@ namespace Business.Concrete
     public class CarManager : ICarServices
     {
         ICarDal _carDal;//Constructor injection
-        public CarManager(ICarDal carDal)
+        IBrandServices _brandServices;
+        //IBrandDal _brandDal; Bir manager sadece kendi DALını Constructor injection yapabilir. Bu yüzden serviceyi injection yaptık
+        public CarManager(ICarDal carDal, IBrandServices brandServices)
         {
             _carDal = carDal;
+            _brandServices = brandServices;
+            //_brandDal = brandDal;
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -43,7 +47,8 @@ namespace Business.Concrete
             //    return new ErrorResult(Messages.FalseDailyPrice);
             //} Fluent Validation Öncesi kodu
 
-            IResult result = BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId), CheckSameDescription(car.Description));
+            IResult result = BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId), CheckSameDescription(car.Description),
+                MaxQuantityOfBrands());
 
             if (result!=null)
             {
@@ -95,6 +100,16 @@ namespace Business.Concrete
             if (result!=0)
             {
                 return new ErrorResult(Messages.SameDescription);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult MaxQuantityOfBrands()//Marka Sayısı 15i geçtiyse ürün eklenemez
+        {
+            var quantityBrand = _brandServices.GetAll().Data.Count;
+            if (quantityBrand>15)
+            {
+                return new ErrorResult(Messages.MaxBrandQuantity);
             }
             return new SuccessResult();
         }

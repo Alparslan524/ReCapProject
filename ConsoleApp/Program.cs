@@ -1,4 +1,5 @@
-﻿using Business.Concrete;
+﻿using Business.Abstract;
+using Business.Concrete;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFrameWork;
 using Entities.Concrete;
@@ -10,7 +11,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal(),new BrandManager(new EfBrandDal()));
             //Car car1 = new Car {ColorId=1,BrandId=2,DailyPrice=5000,Description="deneme45",ModelYear="var"};
             //var result = carManager.Add(car1);
             //if (result.Success == true)

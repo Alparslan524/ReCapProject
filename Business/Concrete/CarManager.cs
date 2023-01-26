@@ -100,17 +100,17 @@ namespace Business.Concrete
             if (result!=0)
             {
                 return new ErrorResult(Messages.SameDescription);
-            }
+            }//Aynı açıklamaya sahip başka bir araç olamaz
             return new SuccessResult();
         }
 
-        private IResult MaxQuantityOfBrands()//Marka Sayısı 15i geçtiyse ürün eklenemez
+        private IResult MaxQuantityOfBrands()
         {
             var quantityBrand = _brandServices.GetAll().Data.Count;
             if (quantityBrand>15)
             {
                 return new ErrorResult(Messages.MaxBrandQuantity);
-            }
+            }//Marka Sayısı 15i geçtiyse ürün eklenemez
             return new SuccessResult();
         }
     }

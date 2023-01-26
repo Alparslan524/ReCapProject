@@ -41,5 +41,16 @@ namespace Business.Constants
         public static string BrandQuantityError = "Bir markanın maksimum 10 aracı olabilir";
         public static string SameDescription = "Aynı açıklamaya sahip başka bir araç var";
         public static string MaxBrandQuantity = "Marka sayısı 15i geçti. Ürün eklenemez";
+
+        public static string CarImageAdded = "Araç resmi eklendi";
+        public static string CarImageDeleted = "Araç resmi silindi";
+        public static string CarImageListed = "Araç resmleri listelendi";
+        public static string CarImageUpdated = "Araç resmi güncellendi";
+
+        public static string MaxImageError = "Bir aracın maksimum 5 resmi olabilir";
+
+        public static string GetImagesByCarIdListed = "Araç ID sine göre resimleri listelendi";
+
+        public static string DefaultCarImageAdded = "Default Araç resmi yüklendi";
     }
 }

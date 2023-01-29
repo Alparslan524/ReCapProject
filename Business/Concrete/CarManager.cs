@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.DependencyResolvers.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -42,6 +43,7 @@ namespace Business.Concrete
                             //Datayı manipüle eden methodlarda kullanırız. Data eklendiğinde değişeceğinde güncellendiğinde vs
                             //veri cacheden alınır. Çünkü veri değiştikten sonra get işlemlerinde cachedeki eski veriyi gösterir
         [ValidationAspect(typeof(CarValidator))]
+        [TransactionScopeAspect]
         public IResult Add(Car car)
         {
             //if (car.DailyPrice>=0)

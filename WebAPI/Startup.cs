@@ -1,5 +1,8 @@
 using Business.Abstract;
 using Business.Concrete;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFrameWork;
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +35,7 @@ namespace WebAPI
             services.AddControllers();
             //services.AddSingleton<ICarServices,CarManager>();
             //services.AddTransient<ICarDal,EfCarDal>();
-            
+
             //services.AddSingleton<IColorServices, ColorManager>();
             //services.AddTransient<IColorDal, EfColorDal>();
 
@@ -51,7 +54,9 @@ namespace WebAPI
             //IOC yapýlandýrýlmasý
             //Biz Autofac kullancaz. Çünkü AOP saðlýyor
 
-
+            services.AddDependencyResolvers(new ICoreModule[] {
+                new CoreModule()
+            });
 
         }
 

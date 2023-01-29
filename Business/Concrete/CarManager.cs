@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.DependencyResolvers.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -27,13 +28,19 @@ namespace Business.Concrete
             _brandServices = brandServices;
             //_brandDal = brandDal;
         }
-
+        
+        [CacheAspect]//Eğer cachede data yoksa Datayı cacheye ekledi. Daha sonraki isteklerde de cachedeki hazır datayı gönderdi.
+                     //Her seferinde veritabanına istek göndermedi
         public IDataResult<List<Car>> GetAll()
         {
             //işlemler  
             return new SuccessDataResult<List<Car>>(_carDal.GetAll().ToList(), Messages.CarListed);
         }
         
+        
+        [CacheRemoveAspect("ICarServices.Get")]//Başarılı bir add işleminden sonra keyi ICarService.Get olan dataları siler.
+                            //Datayı manipüle eden methodlarda kullanırız. Data eklendiğinde değişeceğinde güncellendiğinde vs
+                            //veri cacheden alınır. Çünkü veri değiştikten sonra get işlemlerinde cachedeki eski veriyi gösterir
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -59,19 +66,21 @@ namespace Business.Concrete
 
         }
 
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
-        
+
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
 
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max).ToList(), Messages.ListedByPrice);
@@ -81,7 +90,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDtos(), Messages.CarDetailListed);
         }
-    
+        
         private IResult CheckIfCarCountOfBrandCorrect(int brandId)// Product product da diyebilirdik.
                                                                   // Ama solidin S si olduğu için bu method sadece 1 özelliği kontrol ediyor
                                                                   //başka özellikler başka methodda
